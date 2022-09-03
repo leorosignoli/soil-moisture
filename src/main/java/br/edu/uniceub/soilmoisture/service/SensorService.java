@@ -1,6 +1,6 @@
 package br.edu.uniceub.soilmoisture.service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +19,6 @@ public interface SensorService {
 	 * @param to
 	 * @return
 	 */
-	Set<PointInTimeDTO> findAll(String from, String to);
+	List<PointInTimeDTO> findAll(String from, String to);
 
 }

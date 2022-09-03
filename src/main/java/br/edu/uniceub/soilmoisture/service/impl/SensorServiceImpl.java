@@ -44,7 +44,7 @@ public class SensorServiceImpl implements SensorService {
 	}
 
 	@Override
-	public Set<PointInTimeDTO> findAll(String from, String to) {
+	public List<PointInTimeDTO> findAll(String from, String to) {
 		try {
 
 			// If any of these is null, just return all the data.
@@ -56,7 +56,7 @@ public class SensorServiceImpl implements SensorService {
 					BeanUtils.copyProperties(entry, dto);
 					dto.setDateTime(entry.getTime());
 					return dto;
-				}).collect(Collectors.toSet());
+				}).collect(Collectors.toList());
 			} else {
 				Date fromDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(from);
 				Date toDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(to);
@@ -66,7 +66,7 @@ public class SensorServiceImpl implements SensorService {
 					BeanUtils.copyProperties(entry, dto);
 					dto.setDateTime(entry.getTime());
 					return dto;
-				}).collect(Collectors.toSet());
+				}).collect(Collectors.toList());
 			}
 		} catch (ParseException e) {
 			throw new InvalidDateTime();

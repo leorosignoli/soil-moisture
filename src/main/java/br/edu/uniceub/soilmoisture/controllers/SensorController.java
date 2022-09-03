@@ -1,6 +1,6 @@
 package br.edu.uniceub.soilmoisture.controllers;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class SensorController {
 
 	@GetMapping
 	@ApiOperation(notes = "Date formate: yyyy-MM-dd HH:mm", value = "Find All entries, if date is value, returns all of the data.")
-	public ResponseEntity<Set<PointInTimeDTO>> findAll(@RequestParam(required = false) String from,
+	public ResponseEntity<List<PointInTimeDTO>> findAll(@RequestParam(required = false) String from,
 			@RequestParam(required = false) String to) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(from, to));
 	}
