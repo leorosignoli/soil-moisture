@@ -1,8 +1,11 @@
 package br.edu.uniceub.soilmoisture.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,8 @@ public class SensorController {
 	@Autowired
 	private SensorService service;
 
+	private Logger logger = LoggerFactory.logger(getClass());
+
 	@PostMapping
 	public ResponseEntity<UUID> saveNewEntry(@RequestBody PointInTimeDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.addNewEntry(dto));
@@ -34,6 +39,18 @@ public class SensorController {
 	public ResponseEntity<List<PointInTimeDTO>> findAll(@RequestParam(required = false) String from,
 			@RequestParam(required = false) String to) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(from, to));
+	}
+
+	@PostMapping("/withoutTime")
+	public ResponseEntity<UUID> saveNewEntryNoTime(@RequestParam(name = "id") String sensorId,
+			@RequestParam(name = "value") String value) {
+		PointInTimeDTO dto = new PointInTimeDTO();
+
+		dto.setDateTime(new Date());
+
+		dto.setSensorId(sensorId);
+		dto.setValue(Float.parseFloat(value));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.addNewEntry(dto));
 	}
 
 }
