@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import br.edu.uniceub.soilmoisture.dtos.PointInTimeDTO;
+import br.edu.uniceub.soilmoisture.dtos.Sensor;
 
 @Service
 public interface SensorService {
@@ -20,5 +21,7 @@ public interface SensorService {
 	 * @return
 	 */
 	List<PointInTimeDTO> findAll(String from, String to);
+
+	List<Sensor> findFiltered(String from, String to);
 
 }

@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.uniceub.soilmoisture.dtos.PointInTimeDTO;
+import br.edu.uniceub.soilmoisture.dtos.Sensor;
 import br.edu.uniceub.soilmoisture.service.SensorService;
 import io.swagger.annotations.ApiOperation;
 
@@ -26,8 +25,6 @@ public class SensorController {
 
 	@Autowired
 	private SensorService service;
-
-	private Logger logger = LoggerFactory.logger(getClass());
 
 	@PostMapping
 	public ResponseEntity<UUID> saveNewEntry(@RequestBody PointInTimeDTO dto) {
@@ -39,6 +36,13 @@ public class SensorController {
 	public ResponseEntity<List<PointInTimeDTO>> findAll(@RequestParam(required = false) String from,
 			@RequestParam(required = false) String to) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(from, to));
+	}
+
+	@GetMapping("/filtered")
+	@ApiOperation(notes = "Date formate: yyyy-MM-dd HH:mm", value = "Find All entries, if date is value, returns all of the data.")
+	public ResponseEntity<List<Sensor>> findAllFiltered(@RequestParam(required = false) String from,
+			@RequestParam(required = false) String to) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findFiltered(from, to));
 	}
 
 	@PostMapping("/withoutTime")
