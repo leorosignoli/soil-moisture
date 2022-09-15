@@ -45,6 +45,12 @@ public class SensorController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.findFiltered(from, to));
 	}
 
+	@GetMapping(path = "/listSensors")
+	@ApiOperation(value = "List all sensors")
+	public ResponseEntity<List<String>> getSensorList() {
+		return ResponseEntity.ok(service.listSensors());
+	}
+
 	@PostMapping("/withoutTime")
 	public ResponseEntity<UUID> saveNewEntryNoTime(@RequestParam(name = "id") String sensorId,
 			@RequestParam(name = "value") String value) {

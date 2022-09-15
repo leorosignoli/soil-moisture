@@ -24,4 +24,6 @@ public interface SensorService {
 
 	List<Sensor> findFiltered(String from, String to);
 
+	List<String> listSensors();
+
 }

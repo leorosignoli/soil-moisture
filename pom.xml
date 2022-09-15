@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>br.edu.uniceub</groupId>
 	<artifactId>soil-moisture</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.5</version>
 	<name>soil-moisture</name>
 	<description>Project for soil moisture analysis</description>
 	<properties>

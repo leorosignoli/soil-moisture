@@ -119,4 +119,10 @@ public class SensorServiceImpl implements SensorService {
 		return list;
 	}
 
+	@Override
+	public List<String> listSensors() {
+
+		return sensorRepo.findDistinctSensors();
+	}
+
 }
