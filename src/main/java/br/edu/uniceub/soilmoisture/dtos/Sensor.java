@@ -18,6 +18,10 @@ public class Sensor {
 		uses.add(use);
 	}
 
+	public Sensor(String id) {
+		this.id = id;
+	}
+
 	@Data
 	@AllArgsConstructor
 	public static class Use {

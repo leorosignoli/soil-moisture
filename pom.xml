@@ -9,14 +9,19 @@
 	</parent>
 	<groupId>br.edu.uniceub</groupId>
 	<artifactId>soil-moisture</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.9</version>
 	<name>soil-moisture</name>
 	<description>Project for soil moisture analysis</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-	
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
