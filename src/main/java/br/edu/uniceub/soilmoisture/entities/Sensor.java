@@ -24,8 +24,14 @@ public class Sensor {
 	private String sensorId;
 
 	@Column
+	private Integer minimumValue;
+	@Column
+	private Integer maximumValue;
+	
+	@Column
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Entry> entries= new HashSet<>();
+
 
 	public Sensor(String sensorId) {
 		super();

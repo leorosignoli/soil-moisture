@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.edu.uniceub.soilmoisture.dtos.PointInTimeDTO;
@@ -64,6 +65,19 @@ public class SensorServiceImpl implements SensorService {
 		return sensorRepo.findDistinctSensors();
 	}
 
+	@Override
+	public Sensor findOne(String id) throws NotFoundException {
 
+		return sensorRepo.findById(id).orElseThrow(NotFoundException::new);
+
+	}
+
+	@Override
+	public void setMoisture(String id, Integer min, Integer max) throws NotFoundException {
+		Sensor sensor = sensorRepo.findById(id).orElseThrow(NotFoundException::new);
+		sensor.setMaximumValue(max);
+		sensor.setMinimumValue(min);
+		sensorRepo.save(sensor);
+	}
 
 }
