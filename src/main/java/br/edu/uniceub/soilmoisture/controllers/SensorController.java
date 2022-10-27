@@ -2,7 +2,6 @@ package br.edu.uniceub.soilmoisture.controllers;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.uniceub.soilmoisture.dtos.PointInTimeDTO;
-import br.edu.uniceub.soilmoisture.dtos.Sensor;
+import br.edu.uniceub.soilmoisture.entities.Sensor;
 import br.edu.uniceub.soilmoisture.service.SensorService;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,32 +26,12 @@ public class SensorController {
 	private SensorService service;
 
 	@PostMapping
-	public ResponseEntity<UUID> saveNewEntry(@RequestBody PointInTimeDTO dto) {
+	public ResponseEntity<String> saveNewEntry(@RequestBody PointInTimeDTO dto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.addNewEntry(dto));
 	}
 
-	@GetMapping
-	@ApiOperation(notes = "Date formate: yyyy-MM-dd HH:mm", value = "Find All entries, if date is value, returns all of the data.")
-	public ResponseEntity<List<PointInTimeDTO>> findAll(@RequestParam(required = false) String from,
-			@RequestParam(required = false) String to) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(from, to));
-	}
-
-	@GetMapping("/filtered")
-	@ApiOperation(notes = "Date formate: yyyy-MM-dd HH:mm", value = "Find All entries, if date is value, returns all of the data.")
-	public ResponseEntity<List<Sensor>> findAllFiltered(@RequestParam(required = false) String from,
-			@RequestParam(required = false) String to) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.findFiltered(from, to));
-	}
-
-	@GetMapping(path = "/listSensors")
-	@ApiOperation(value = "List all sensors")
-	public ResponseEntity<List<String>> getSensorList() {
-		return ResponseEntity.ok(service.listSensors());
-	}
-
 	@PostMapping("/withoutTime")
-	public ResponseEntity<UUID> saveNewEntryNoTime(@RequestParam(name = "id") String sensorId,
+	public ResponseEntity<String> saveNewEntryNoTime(@RequestParam(name = "id") String sensorId,
 			@RequestParam(name = "value") String value) {
 		PointInTimeDTO dto = new PointInTimeDTO();
 
@@ -61,6 +40,22 @@ public class SensorController {
 		dto.setSensorId(sensorId);
 		dto.setValue(Float.parseFloat(value));
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.addNewEntry(dto));
+	}
+	
+
+	// FRONT END ENDPOINTS
+
+	@GetMapping("/frontend/findAll")
+	@ApiOperation(notes = "Date formate: yyyy-MM-dd HH:mm", value = "Find All entries, if date is value, returns all of the data.")
+	public ResponseEntity<List<Sensor>> findAll(@RequestParam(required = false) String from,
+			@RequestParam(required = false) String to) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll(from, to));
+	}
+
+	@GetMapping(path = "/frontend/listSensorNames")
+	@ApiOperation(value = "List all sensors")
+	public ResponseEntity<List<String>> getSensorList() {
+		return ResponseEntity.ok(service.listSensors());
 	}
 
 }

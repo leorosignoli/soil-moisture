@@ -8,17 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class Sensor {
+public class SensorDTO {
 
 	private String id;
 	private List<Use> uses = new ArrayList<>();
 
-	public Sensor(String id, Use use) {
+	public SensorDTO(String id, Use use) {
 		this.id = id;
 		uses.add(use);
 	}
 
-	public Sensor(String id) {
+	public SensorDTO(String id) {
 		this.id = id;
 	}
 
